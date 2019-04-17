@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <h1>User Settings</h1>
+        <NavBar/>
+        <router-view/>
+        <router-view name="helper"/>
+    </div>
+</body>
+</html>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script src="node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+
+
+    let router = new VueRouter({
+         routes:[
+             {
+                 path: '/settings',
+                 // 你也可以在顶级路由就配置命名视图
+                 component: UserSettings,
+                 children: [{
+                     path: 'emails',
+                     component: UserEmailsSubscriptions
+                 }, {
+                     path: 'profile',
+                     components: {
+                         default: UserProfile,
+                         helper: UserProfilePreview
+                     }
+                 }]
+             }
+    ]
+    })
+    new Vue({
+        router,
+        el:"#app",
+
+    })
+</script>
